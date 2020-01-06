@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  name: knative-spring-mvc-pipeline-run
+  namespace: default
+spec:
+  serviceAccount: build-bot
+  pipelineRef:
+    name: build-and-deploy-pipeline
+  resources:
+    - name: source-repo
+      resourceRef:
+        name: knative-spring-mvc-git
+    - name: knative-spring-mvc
+      resourceRef:
+        name: knative-spring-mvc-image

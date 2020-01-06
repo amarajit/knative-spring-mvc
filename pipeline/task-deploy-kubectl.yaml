@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: deploy-using-kubectl
+spec:
+  inputs:
+    resources:
+      - name: source
+        type: git
+      - name: image
+        type: image
+    params:
+      - name: path
+        description: The path to the manifest of your app
+  steps:
+    - name: run-kubectl
+      image: lachlanevenson/k8s-kubectl
+      command: ["kubectl"]
+      args:
+        - "apply"
+        - "-f"
+        - "/workspace/source/$(inputs.params.path)"

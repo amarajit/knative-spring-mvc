@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: knative-spring-mvc-image
+spec:
+  type: image
+  params:
+    - name: url
+      value: docker.io/ajittua/knative-spring-mvc

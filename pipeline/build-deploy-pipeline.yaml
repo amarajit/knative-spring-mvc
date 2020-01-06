@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-deploy-pipeline
+spec:
+  resources:
+    - name: source-repo
+      type: git
+    - name: knative-spring-mvc
+      type: image
+  tasks:
+    - name: build-knative-spring-mvc
+      taskRef:
+        name: build-docker-image-from-git-source
+      params:
+        - name: pathToDockerFile
+          value: Dockerfile
+        - name: pathToContext
+            # Point to Dockerfile
+          value: .
+      resources:
+        inputs:
+          - name: docker-source
+            resource: source-repo
+        outputs:
+           - name: builtImage
+             resource: knative-spring-mvc
+    - name: deploy-knative-spring-mvc
+      taskRef:
+        name: deploy-using-kubectl
+      resources:
+          inputs:
+            - name: source
+              resource: source-repo
+            - name: image
+              resource: knative-spring-mvc
+              from :
+                - build-knative-spring-mvc
+      params:
+        - name: path
+          value: service.yaml
+
