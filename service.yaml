@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1alpha1
 kind: Service
 metadata:
-  name: springmvcapp
+  name: knative-spring-mvc
   namespace: default
 spec:
   runLatest:
@@ -14,4 +14,4 @@ spec:
             autoscaling.knative.dev/maxScale: "3"
         spec:
           container:
-            image: docker.io/rajujrk123/springmvcapp
+            image: docker.io/ajittua/knative-spring-mvc
