@@ -24,7 +24,7 @@ spec:
             resource: source-repo
         outputs:
            - name: builtImage
-             resource: knative-spring-mvc
+             resource: knative-spring-mvc:blue
     - name: deploy-knative-spring-mvc
       taskRef:
         name: deploy-using-kubectl
@@ -33,7 +33,7 @@ spec:
             - name: source
               resource: source-repo
             - name: image
-              resource: knative-spring-mvc
+              resource: knative-spring-mvc:blue
               from :
                 - build-knative-spring-mvc
       params:

@@ -4,6 +4,7 @@ package com.knative.springmvc.controllers;
 import com.knative.springmvc.models.Book;
 import com.knative.springmvc.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,12 +25,15 @@ public class WebRestController {
 	@Autowired
 	BookService bookService;
 
+	@Value("${TARGET}")
+	String target;
+
 	// -------------------Retrieve All
 	// Books--------------------------------------------------------
 
 	@GetMapping("/")
 	public ResponseEntity<?> init() {
-		return new ResponseEntity<>("Application is Up and Running", HttpStatus.OK);
+		return new ResponseEntity<>(target +" Application is Up and Running", HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/book/")
