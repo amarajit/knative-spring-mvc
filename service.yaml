@@ -14,9 +14,7 @@ spec:
             autoscaling.knative.dev/maxScale: "3"
         spec:
           container:
-            image: docker.io/ajittua/knative-spring-mvc:green
-            env:
-              - name: TARGET
-                value: "green"
+            image: docker.io/ajittua/knative-spring-mvc
+
 
 
